@@ -14,6 +14,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
+    var weatherManager: WeatherManager = WeatherManager()
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
@@ -32,7 +33,9 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         //use this to get the weather for that city
-        searchTextField.text = ""
+        if let cityName = searchTextField.text {
+            weatherManager.fetchWeather(cityName: cityName)
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
